@@ -66,7 +66,11 @@ class Hand
     @hand = []
   end
 
-  def hit(dealt_card)
+  def last_dealt_card
+    hand[-1].card
+  end
+
+  def hit!(dealt_card)
     hand << dealt_card
   end
 

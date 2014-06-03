@@ -1,38 +1,80 @@
 require_relative 'classes'
 require 'pry'
 
+def player_score
+  "Player was dealt #{player.last_dealt_card}"
+end
+
+
 puts 'Welcome to Blackjack!'
 
 game_deck = Deck.new
 
 player = Hand.new
-player.hit(game_deck.deal!)
-puts "Player was dealt #{player.hand[-1].card}"
+dealer = Hand.new
 
 
-# deal to player
-# player score
+player.hit!(game_deck.deal!)
+puts "Player was dealt #{player.last_dealt_card}"
+player.hit!(game_deck.deal!)
+puts "Player was dealt #{player.last_dealt_card}"
+puts "Player score: #{player.best_total_value}"
+puts
 
-# H/S?
+print "Hit or Stand? (h/s): "
+hit_or_stand = gets.chomp
+raise "Please input 'h' or 's'" if hit_or_stand != 'h' && hit_or_stand != 's'
 
-# while input is hit
-#   deal to player
-#   if player.best_value > 21
-#     puts 'You lose!'
-#     exit
-#   end
-#   H/S?
-# end
+while hit_or_stand == 'h'
+  player.hit!(game_deck.deal!)
+  puts "Player was dealt #{player.last_dealt_card}"
+  puts "Player score: #{player.best_total_value}"
 
-# deal to dealer
-# deal to dealer
+  if player.best_total_value > 21
+    puts
+    puts "Your score is over 21! You lose!"
+    exit
+  end
 
-# while dealer.best_value < 17
-#   deal to dealer
-#   if dealer.best_value > 21
-#     puts 'Bust! You win!'
-#     exit
-#   end
-# end
+  puts
+  print "Hit or Stand? (h/s): "
+  hit_or_stand = gets.chomp
+  raise "Please input 'h' or 's'" if hit_or_stand != 'h' && hit_or_stand != 's'
 
-# compare scores, whoever is closer to 21 wins!
+end
+  puts
+  puts "Player score: #{player.best_total_value}"
+  puts
+
+
+dealer.hit!(game_deck.deal!)
+puts "Dealer was dealt #{dealer.last_dealt_card}"
+dealer.hit!(game_deck.deal!)
+puts "Dealer was dealt #{dealer.last_dealt_card}"
+puts "Dealer score: #{dealer.best_total_value}"
+puts
+
+
+while dealer.best_total_value < 17 && dealer.best_total_value < player.best_total_value
+  dealer.hit!(game_deck.deal!)
+  puts "Dealer was dealt #{dealer.last_dealt_card}"
+  puts "Dealer score: #{dealer.best_total_value}"
+  puts
+
+  if dealer.best_total_value > 21
+    puts "Dealer busts. You win!"
+    exit
+  end
+
+end
+
+puts "Dealer stands."
+puts
+
+if player.best_total_value > dealer.best_total_value
+  puts "Your score is closer to 21. You win!"
+elsif dealer.best_total_value < player.best_total_value
+  puts "The dealer's score is closer to 21. You lose"
+else
+  puts "It's a tie. No one wins!"
+end
