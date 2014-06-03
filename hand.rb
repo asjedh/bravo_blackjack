@@ -1,4 +1,3 @@
-require 'pry'
 require_relative = 'deck'
 require_relative = 'hand'
 require_relative = 'game'

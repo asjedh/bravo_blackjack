@@ -1,7 +1,3 @@
-require_relative = 'deck'
-require_relative = 'hand'
-require_relative = 'game'
-
 POSSIBLE_VALUES = { '2' => 2,
                     '3' => 3,
                     '4' => 4,
@@ -22,7 +18,7 @@ SUITS = ['♦','♣', '♠', '♥']
 
 class Card
 
-  attr_reader :number
+  attr_reader :number, :suit
 
   def initialize(number, suit)
     @number = number

@@ -1,11 +1,15 @@
+require_relative 'classes'
 require 'pry'
-require_relative = 'deck'
-require_relative = 'hand'
-require_relative = 'game'
 
 puts 'Welcome to Blackjack!'
 
-# deal to player
+game_deck = Deck.new
+
+player = Hand.new
+player.hit(game_deck.deal!)
+puts "Player was dealt #{player.hand[-1].card}"
+
+
 # deal to player
 # player score
 
